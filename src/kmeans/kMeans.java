@@ -1,5 +1,7 @@
 package kmeans;
 
+import common.utils.CalculateUtil;
+
 import java.util.*;
 
 public class kMeans {
@@ -52,12 +54,8 @@ public class kMeans {
                 int cluster = -1;
 
                 for (int i = 0; i < points.size(); i++) { // 遍历每一个中心点
-                    double distance = 0;
-                    for (int n = 0; n < input.get(s).size(); n++) { // 计算一个样本和一个中心点的距离
-                        distance += Math.pow(input.get(s).get(n) - points.get(i).get(n), 2);
-                    }
-                    distance = Math.pow(distance, 0.5);
 
+                    double distance = CalculateUtil.getDistance(input.get(s), points.get(i));
                     if (distance < nearest) {
                         nearest = distance;
                         cluster = i;

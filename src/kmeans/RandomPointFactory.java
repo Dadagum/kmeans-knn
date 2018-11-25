@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 完成随机的生成点的策略
+ * 随机的生成点的策略
  */
 public class RandomPointFactory implements PointFactory {
 

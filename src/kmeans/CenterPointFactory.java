@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * 针对这个数据集的生成中心点策略
+ */
 public class CenterPointFactory implements PointFactory{
 
 
