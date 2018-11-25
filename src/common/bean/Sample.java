@@ -2,11 +2,11 @@ package common.bean;
 
 import java.util.List;
 
-public class Sample {
+public class Sample<T> {
 
     private List<Double> features;
 
-    private String category;
+    private T category; // 如果不是String和Integer类型需要最好实现自己的hashCode和equal方法
 
     public List<Double> getFeatures() {
         return features;
@@ -16,11 +16,11 @@ public class Sample {
         this.features = features;
     }
 
-    public String getCategory() {
+    public T getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(T category) {
         this.category = category;
     }
 }

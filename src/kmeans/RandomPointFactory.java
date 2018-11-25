@@ -9,13 +9,13 @@ import java.util.Random;
  */
 public class RandomPointFactory implements PointFactory {
 
-    private int ub;
+    private int ub; // 特征量上界
 
-    private int lb;
+    private int lb; // 特征量下界
 
-    private int dim;
+    private int dim; // 样本维度即样本特征量的数量
 
-    private int num;
+    private int num; // 需要生成的中心点个数
 
     private Random random = new Random();
 

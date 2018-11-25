@@ -28,13 +28,13 @@ public class DataSetUtil {
         return result;
     }
 
-    public static List<Sample> loadSamples(String fileName) throws IOException {
-        List<Sample> result = new ArrayList<>();
+    public static List<Sample<String>> loadSamples(String fileName) throws IOException {
+        List<Sample<String>> result = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String line;
         while ((line = reader.readLine()) != null) {
             List<Double> featureList = new ArrayList<>();
-            Sample sample = new Sample();
+            Sample<String> sample = new Sample();
             String[] features = line.split(",");
             for (int i = 0; i < features.length - 1; i++) {
                 featureList.add(Double.parseDouble(features[i]));
