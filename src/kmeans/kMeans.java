@@ -24,16 +24,12 @@ public class kMeans {
      * end
      *
      * @param input 输入数据
-     * @param centers 需要初始化中心点的个数，也就是最终聚类后的个数
-     * @Param ub 随机生成特征的上界
-     * @Param lb 随机生成特征的下界
+     * @param centers 分类个数即随机中心点的个数
+     * @param pointFactory 生成初始中心点的方案
      * @return 数据的分类, 0, 1,...
      */
-    public static int[] run(List<List<Double>> input, int centers, int ub, int lb) {
-        // 检查入参
-        if (ub < lb) {
-            throw new IllegalArgumentException("upper bounce should be bigger than lower bounce");
-        }
+    public static int[] run(List<List<Double>> input, int centers, PointFactory pointFactory) {
+
         if (centers < 0) {
             throw new IllegalArgumentException("the number of centers should be bigger than zero");
         }
@@ -47,7 +43,7 @@ public class kMeans {
         }
 
         int dim = input.get(0).size(); // 维度
-        List<List<Double>> points = generateCenters(centers, dim, ub, lb);
+        List<List<Double>> points = pointFactory.generateCenters();
         boolean[] signs = new boolean[centers]; // 是否需要继续迭代的标记，true表示需要继续迭代
 
         while (true) { // 算法还没有收敛，需要继续进行
@@ -115,7 +111,6 @@ public class kMeans {
         for (int i = 0; i < centers; i++) {
             double[] sum = record.get(i);
             for (int j = 0; j < sum.length; j++) {
-                // TODO
                 points.get(i).set(j, sum[j] / total[i]); // 更新中心点的某一个特征
             }
 
@@ -143,27 +138,6 @@ public class kMeans {
         for (int i = 0; i < signs.length; i++) {
             signs[i] = false;
         }
-    }
-
-    /**
-     * 随机生成中心点
-     * @param centers 生成中心点的个数
-     * @param dim 数据的维度
-     * @param ub 特征的上界
-     * @param lb 特征的下界
-     * @return 中心点列表
-     */
-    private static List<List<Double>> generateCenters(int centers, int dim, int ub, int lb) {
-        List<List<Double>> result = new ArrayList<>(centers);
-        int size = ub - lb;
-        for (int i = 0; i < centers; i++) {
-            List<Double> data = new ArrayList<>(dim);
-            for (int j = 0; j < dim; j++) {
-                data.add(random.nextDouble() + random.nextInt(size) + lb);
-            }
-            result.add(data);
-        }
-        return result;
     }
 
 
