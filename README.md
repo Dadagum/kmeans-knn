@@ -6,14 +6,14 @@
 
 ## K-means
 
-1. 静态调用int[] run(List<List<Double>> input, int centers, PointFactory pointFactory)
+1. 静态调用`int[] run(List<List<Double>> input, int centers, PointFactory pointFactory)`
    - input：数据集的特征集合，例如[[1.1, 3], [2, 5.6]]。
    - centers：撒放中心点的个数。
    - PointFactory：生成中心点的工厂，RandomPointFactory是随机生成中心点的工厂，而CenterPointFactory为本次数据集中聚类效果不错的中心点。可以通过实现PointFactory工厂提供更多的生成中心点的策略。
 
 ## Knn
 
-1. 静态调用void run(List<Sample<T>> train, List<Sample<T>> test, int k)
+1. 静态调用`void run(List<Sample<T>> train, List<Sample<T>> test, int k)`
    - train：训练集。
    - test：测试集。
    - k：knn算法的k参数。
