@@ -15,8 +15,8 @@ public class KmeansTest {
         String fileName = "/home/hongda/Documents/lib/datamining/knn_kmeans/iris.data";
         List<List<Double>> input = DataSetUtil.loadFeatures(fileName);
         // List<List<Double>> subList = input.subList(49,52);
-        // int[] result = randomMethod(input);
-         int[] result = centerPointMethod(input);
+         int[] result = randomMethod(input);
+         // int[] result = centerPointMethod(input);
 
         for (int i = 0, cnt = 0; i < result.length; i++, cnt = (cnt+1)%50) {
             System.out.print(result[i] + " ");

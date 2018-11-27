@@ -3,6 +3,7 @@ package kmeans;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * 随机的生成点的策略
@@ -33,13 +34,11 @@ public class RandomPointFactory implements PointFactory {
             throw new IllegalArgumentException("upper bounce should be bigger than lower bounce");
         }
         List<List<Double>> result = new ArrayList<>(num);
-        int size = ub - lb;
         for (int i = 0; i < num; i++) {
-            List<Double> data = new ArrayList<>(dim);
-            for (int j = 0; j < dim; j++) {
-                data.add(random.nextDouble() + random.nextInt(size) + lb);
-            }
-            result.add(data);
+            result.add(random
+                    .doubles(dim, lb, ub)
+                    .boxed()
+                    .collect(Collectors.toList()));
         }
         return result;
     }

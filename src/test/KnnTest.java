@@ -8,42 +8,49 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class KnnTest {
 
     public static void main(String[] args) throws IOException {
         String fileName = "/home/hongda/Documents/lib/datamining/knn_kmeans/iris.data";
-        List<Sample<String>> samples = DataSetUtil.loadSamples(fileName);
-        List<Sample<String>> train = getTrainSet(samples);
-        List<Sample<String>> backup = new ArrayList<>(train); // 拷贝一份，以后拿来评估
-        for (int i = 0; i < samples.size(); i++) {
-            samples.get(i).setCategory(null); // 清除类别信息
+        List<Sample<String>> train = DataSetUtil.loadSamples(fileName);
+        List<Sample<String>> test = getTestSet(train);
+        List<Sample<String>> backup = new ArrayList<>(test); // 拷贝一份，以后拿来评估
+        for (int i = 0; i < test.size(); i++) {
+            test.get(i).setCategory(null); // 清除类别信息
         }
-        Knn.run(train, samples, 20);
-//        for (int i = 0, cnt = 0; i < samples.size(); i++, cnt = (cnt+1)%10) {
-//            System.out.print(samples.get(i).getCategory() + " ");
-//            if (cnt == 9) {
-//                System.out.println();
-//            }
-//        }
-        judge(backup, samples);
+        Knn.run(train, test, 5);
+        for (int i = 0, cnt = 0; i < test.size(); i++, cnt = (cnt+1)%10) {
+            System.out.print(test.get(i).getCategory() + " ");
+            if (cnt == 9) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+        judge(backup, test);
     }
 
     /**
-     * 划分训练集，没有划分的后面将会置null(装作不知道)，每一个类随机抓n条
+     * 划分得到测试集
      * @param samples 数据集
-     * @return 训练集
+     * @return
      */
-    private static List<Sample<String>> getTrainSet(List<Sample<String>> samples) {
+    private static List<Sample<String>> getTestSet(List<Sample<String>> samples) {
         List<Sample<String>> result = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < samples.size(); i++) {
-            if (random.nextInt(7) >= 3) {
-                result.add(samples.get(i));
-                samples.remove(samples.get(i));
+        int testSize = 15;
+        List<List<Integer>> trainIndex = new ArrayList<>();
+        for (int i = 150; i > 0; i -= 50) {
+            trainIndex.add(random.ints(testSize, i-50, i).boxed().sorted((a, b) -> -Integer.compare(a, b)).collect(Collectors.toList()));
+        }
+        System.out.println(trainIndex);
+        for (var list : trainIndex) {
+            for (var index : list) {
+                result.add(samples.get(index));
+                samples.remove(samples.get(index));
             }
         }
-
         return result;
     }
 

@@ -6,8 +6,6 @@ import java.util.*;
 
 public class kMeans {
 
-    private static Random random = new Random();
-
     private kMeans() {
     }
 
@@ -75,7 +73,6 @@ public class kMeans {
             } else {
                 break;
             }
-
         }
         return result;
     }
@@ -111,13 +108,12 @@ public class kMeans {
             for (int j = 0; j < sum.length; j++) {
                 points.get(i).set(j, sum[j] / total[i]); // 更新中心点的某一个特征
             }
-
         }
     }
 
     /**
      * 算法是否已经收敛
-     * @param signs 标记数组，只有标记数组都为true才算是算法收敛
+     * @param signs 标记数组，只要一个为true则表示需要继续迭代
      */
     private static boolean convergence(boolean[] signs) {
         for (boolean sign : signs) {
@@ -137,7 +133,6 @@ public class kMeans {
             signs[i] = false;
         }
     }
-
 
     private static void sum(double[] sum, List<Double> sample) {
         for (int i = 0; i < sum.length; i++) {

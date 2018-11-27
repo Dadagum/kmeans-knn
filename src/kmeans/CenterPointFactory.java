@@ -3,6 +3,8 @@ package kmeans;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * 针对这个数据集的生成中心点策略
@@ -11,7 +13,6 @@ public class CenterPointFactory implements PointFactory{
 
 
     private List<List<Double>> input;
-
 
     private int dim;
 
